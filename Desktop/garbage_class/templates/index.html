@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waste Classification</title>
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for ('static', filename='waste_class_logo.png') }}" alt="Logo" class="circular">
+    <h1>  Waste Classification  </h1>
+    <p>Get correct class of your uploaded waste image </p>
+  
+  </header>
+
+
+
+<div class="container" id="home">
+   
+  <img src="{{ url_for ('static', filename='waste_banner.png') }}"  alt="banner2" width=100%  padding=0 >
+  <h2>Welcome to ScrapLens</h2>
+  <hr>
+  <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit"><b>⚡ANALYZE WASTE ITEM</b></button>
+    </form>
+</div> 
+<div class="result-box">
+  {%if  prediction %}
+
+    <h3>predicted class: {{ prediction}}</h3>
+    <h3>Confidence: {{confidence}}%</h3>
+    <img src={{image_path}}  alt="wasteimg" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  {% endif %}
+  {% if path %}
+    <img src="data:image/jpeg;base64,{{ path }}" alt="wasteimg" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  {% endif %}
+    </div>
+
+<div class="app-container">
+    
+    <p class="description">
+        Scan your trash to learn how to dispose of it properly, and whether it works with Clear Drop.
+    </p>
+
+    <div class="camera-box">
+        <svg class="camera-icon" viewBox="0 0 24 24">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+        <p class="status-text">Camera is off</p>
+        <p class="instruction-text">Tap here or the button below to begin.</p>
+    </div>
+
+    <form id="uploadForm" action="/predict" method="POST" enctype="multipart/form-data" style="display: none;">
+        <input type="file" id="fileInput" name="file" accept="image/*">
+    </form>
+
+    <div class="action-buttons">
+        <button type="button" class="btn btn-upload" onclick="triggerUpload()">
+            <span>↑</span> Upload Photo
+        </button>
+        
+        <button type="button" class="btn btn-camera">
+            <span>📷</span> Start Camera
+        </button>
+    </div>
+
+</div>
+
+
+
+ <!-- Quick Access Features -->
+  <section class="features">
+      <a href="categories.html" class="feature-card">
+        <img src="https://img.icons8.com/color/96/trash.png" alt="13 Waste Classes">
+        <p>13 Waste Classes</p>
+      </a>
+
+      <a href="disposal.html" class="feature-card">
+        <img src="https://img.icons8.com/color/96/recycle.png" alt="Disposal Guide">
+        <p>Disposal Guide</p>
+      </a>
+
+      <a href="analytics.html" class="feature-card">
+        <img src="https://img.icons8.com/color/96/combo-chart.png" alt="Sorting Insights">
+        <p>Sorting Insights</p>
+      </a>
+
+      <a href="guidelines.html" class="feature-card">
+        <img src="https://img.icons8.com/color/96/leaf.png" alt="Eco Guidelines">
+        <p>Eco Guidelines</p>
+      </a>
+    </section>
+
+
+
+
+  
+    <!-- About Section -->
+<section class="about">
+  <div class="about-container">
+    <h2>🌱 About ScrapLens</h2>
+    <p>
+      ScrapLens is your intelligent waste management companion designed to power 
+      sustainability through automated sorting. Powered by deep learning, our platform helps in:
+    </p>
+    <p>🔍 Real-time classification across 13 distinct waste categories</p>
+    <p>♻️ Instant identification of recyclable vs. non-recyclable materials</p>
+    <p>📊 Tracking disposal trends to minimize local landfill footprints</p>
+    <p>💡 Providing eco-friendly sorting tips and local recycling guidelines</p>
+    <p>
+      Together, let’s leverage technology to build a <b>cleaner, zero-waste future</b>.
+    </p>
+  </div>
+  <p class="copyright">© 2026 ScrapLens. All rights reserved.</p>
+</section>
+
+ 
+
+ <!-- Footer Navigation -->
+  <footer>
+    <a href="#"><img src="https://img.icons8.com/ios-filled/50/home.png"/><br>Home</a>
+    <a href="#"><img src="https://img.icons8.com/ios-filled/50/combo-chart.png"/><br>Insights</a>
+    <a href="#"><img src="https://img.icons8.com/ios-filled/50/help.png"/><br>Help</a>
+    <a href="#"><img src="https://img.icons8.com/ios-filled/50/settings.png"/><br>Settings</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
+

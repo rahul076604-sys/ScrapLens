@@ -1,0 +1,328 @@
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background:navy;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      
+    }
+    .circular{
+        width:150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #2e7d32;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #1b5e20;
+      transform: scale(1.1);
+    }
+    .result-box {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      min-height: 100px;
+    }
+   /*adding videos of farmers */
+    .video-gallery {
+      display: flex;           /* arrange videos in a row */
+      overflow-x: auto;        /* scroll if too many videos */
+      gap: 20px;               /* space between videos */
+      padding: 20px;
+      justify-content: flex-start;
+    }
+
+    .video-container {
+      flex: 0 0 300px;         /* each video fixed width */
+      position: relative;
+      padding-bottom: 56.25%;  /* 16:9 aspect ratio */
+      height: 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #f1f1f1;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 2px solid #ddd;
+    }
+    footer a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      text-align: center;
+    }
+    footer img {
+      width: 24px;
+      display: block;
+      margin: auto;
+    }
+
+    /* Quick Access Buttons 
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 15px;
+    }
+    .feature-card {
+      flex: 1 1 120px;
+      background: #ffffff;
+      border-radius: 20px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .feature-card:hover {
+      transform: scale(1.05);
+    }
+    .feature-card img {
+      width: 50px;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      margin: 0;
+      font-weight: bold;
+      color: #333;
+    }
+
+    */
+.about {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+  margin-top: 40px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
+}
+.about p {
+  max-width: 700px;
+  margin: 10px auto;
+  line-height: 1.8;
+  font-size: 16px;
+}
+.about .copyright {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #e0e0e0;
+  border-top: 1px solid rgba(255,255,255,0.4);
+  padding-top: 15px;
+}
+
+
+/* *new quick acces features */
+
+.features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px 15px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      border-color: var(--primary-color);
+    }
+
+    .feature-card img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+
+
+
+
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    text-align: center;
+}
+
+
+.description {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+}
+
+
+.camera-box {
+    background: #1e293b;
+    border: 2px dashed #334155;
+    border-radius: 16px;
+    padding: 30px 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.camera-box:hover {
+    border-color: #38bdf8;
+    background: #243244;
+    transform: scale(1.02);
+}
+
+
+.camera-icon {
+    width: 60px;
+    height: 60px;
+    fill: none;
+    stroke: #38bdf8;
+    stroke-width: 1.5;
+    margin-bottom: 10px;
+}
+
+
+.status-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #f1f5f9;
+}
+
+.instruction-text {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+
+.btn-upload {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.btn-upload:hover {
+    background: #0ea5e9;
+}
+
+
+.btn-camera {
+    background: #22c55e;
+    color: #052e16;
+}
+
+.btn-camera:hover {
+    background: #16a34a;
+}
+
+/* Hidden file input (still accessible) */
+#fileInput {
+    display: none;
+}
+
+/* Optional mobile polish */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 15px;
+    }
+
+    .camera-box {
+        padding: 25px 15px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 10px;
+    }
+}

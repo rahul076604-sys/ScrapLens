@@ -1,0 +1,31 @@
+
+<div class="app-container">
+    
+    <p class="description">
+        Scan your trash to learn how to dispose of it properly, and whether it works with Clear Drop.
+    </p>
+
+    <div class="camera-box">
+        <svg class="camera-icon" viewBox="0 0 24 24">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+        <p class="status-text">Camera is off</p>
+        <p class="instruction-text">Tap here or the button below to begin.</p>
+    </div>
+
+    <form id="uploadForm" action="/predict" method="POST" enctype="multipart/form-data" style="display: none;">
+        <input type="file" id="fileInput" name="file" accept="image/*">
+    </form>
+
+    <div class="action-buttons">
+        <button type="button" class="btn btn-upload" onclick="triggerUpload()">
+            <span>↑</span> Upload Photo
+        </button>
+        
+        <button type="button" class="btn btn-camera">
+            <span>📷</span> Start Camera
+        </button>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+% Program 1
+write a prolog program to implement the predicate insert(item, ps, list, result) that inserts element item at the nth position of a given list resulting in new list result.
+
+implementation must make use of recursive pattern matching with head-tail decomposition of the list (ie(H|T) form).
+define a base case to handle insertion when pos is 0 
+use recursive logic to traverse the list and insert the item at the correct position.
+do not use built-in list manipulation predicates.
+
+
+
+
+% Base case: inserting at position 0, just prepend the item
+insert(Item, 0, List, [Item|List]).
+
+% Recursive case: decompose the list and reduce the position counter
+insert(Item, Pos, [H|T], [H|Rest]) :-
+    Pos > 0,
+    Pos1 is Pos - 1,
+    insert(Item, Pos1, T, Rest).
+
+?- insert(x, 2, [a,b,c,d], R).
+R = [a, b, x, c, d].
