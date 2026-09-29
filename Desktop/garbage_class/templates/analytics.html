@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sorting Insights - ScrapLens</title>
+
+    <style>
+
+        /* =========================
+           BASIC PAGE
+        ========================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8f5;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+            color: #1e293b;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            background: navy;
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        header h1 {
+            margin: 5px 0 8px;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 15px;
+            color: #cbd5e1;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================== */
+
+        .back-container {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #2e7d32;
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .back-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           INTRO
+        ========================== */
+
+        .intro {
+            max-width: 850px;
+            margin: 25px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           STAT CARDS
+        ========================== */
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px 15px;
+            text-align: center;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+            transition: transform 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .stat-title {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================== */
+
+        .content-container {
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+
+        /* =========================
+           SECTION CARD
+        ========================== */
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+            margin-bottom: 20px;
+        }
+
+        .section-card h2 {
+            margin-top: 0;
+            color: #1e293b;
+            font-size: 21px;
+        }
+
+        .section-description {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+
+        /* =========================
+           CATEGORY BARS
+        ========================== */
+
+        .category-row {
+            margin-bottom: 17px;
+        }
+
+        .category-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .category-name {
+            font-weight: bold;
+            color: #334155;
+        }
+
+        .category-value {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .bar-background {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #2e7d32;
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           WASTE GROUPS
+        ========================== */
+
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .group-card {
+            padding: 18px;
+
+            background: #f8fafc;
+
+            border-radius: 10px;
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .group-card h3 {
+            margin-top: 0;
+            color: #2e7d32;
+            font-size: 18px;
+        }
+
+        .group-card p {
+            color: #64748b;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .class-list {
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           INSIGHT BOX
+        ========================== */
+
+        .insight-box {
+            background: #1e293b;
+            color: white;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .insight-box h2 {
+            color: #38bdf8;
+            margin-top: 0;
+        }
+
+        .insight-box p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #f1f1f1;
+
+            border-top: 2px solid #ddd;
+
+            padding: 15px 0;
+
+            text-align: center;
+
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px;
+
+            color: #475569;
+
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #2e7d32;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .groups-container {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            .section-card {
+                padding: 20px 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header>
+
+    <h1>📊 Sorting Insights</h1>
+
+    <p>
+        Explore waste classification and sorting insights
+    </p>
+
+</header>
+
+
+
+<!-- =========================
+     BACK BUTTON
+========================== -->
+
+<div class="back-container">
+
+    <a href="index.html" class="back-btn">
+        ← Back to Home
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     INTRO
+========================== -->
+
+<section class="intro">
+
+    <h2>Understand Your Waste</h2>
+
+    <p>
+        ScrapLens classifies waste into 11 categories.
+        Explore the different waste groups and understand
+        how proper sorting can support recycling and reuse.
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     SUMMARY CARDS
+========================== -->
+
+<section class="stats-container">
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🗂️
+        </div>
+
+        <div class="stat-number">
+            11
+        </div>
+
+        <div class="stat-title">
+            Waste Classes
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ♻️
+        </div>
+
+        <div class="stat-number">
+            5
+        </div>
+
+        <div class="stat-title">
+            Recyclable Classes
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🌱
+        </div>
+
+        <div class="stat-number">
+            2
+        </div>
+
+        <div class="stat-title">
+            Reusable Classes
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CLASSIFICATION OVERVIEW
+========================== -->
+
+<div class="content-container">
+
+    <div class="section-card">
+
+        <h2>📈 Waste Classification Overview</h2>
+
+        <p class="section-description">
+            The 11 ScrapLens categories cover several common
+            types of household and everyday waste.
+        </p>
+
+
+        <!-- Plastic -->
+
+        <div class="category-row">
+
+            <div class="category-info">
+
+                <span class="category-name">
+                    🧴 Plastic
+                </span>
+
+                <span class="category-value">
+                    Recyclable
+                </span>
+
+            </div>
+
+            <div class="bar-background">
+
+                <div class="bar-fill" style="width: 90%;"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Paper -->
+
+        <div class="category-row">
+
+            <div class="category-info">
+
+                <span class="category-name">
+                    📄 Paper
+                </span>
+
+                <span class="category-value">
+                    Recyclable
+                </span>
+
+            </div>
+
+            <div class="bar-background">
+
+                <div class="bar-fill" style="width: 80%;"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Cardboard -->
+
+        <div class="category-row">
+
+            <div class="category-info">
+
+                <span class="category-name">
+                    📦 Cardboard
+                </span>
+
+                <span class="category-value">
+                    Recyclable
+                </span>
+
+            </div>
+
+            <div class="bar-background">
+
+                <div class="bar-fill" style="width: 75%;"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Glass -->
+
+        <div class="category-row">
+
+            <div class="category-info">
+
+                <span class="category-name">
+                    🥛 Glass
+                </span>
+
+                <span class="category-value">
+                    Recyclable
+                </span>
+
+            </div>
+
+            <div class="bar-background">
+
+                <div class="bar-fill" style="width: 70%;"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Metal -->
+
+        <div class="category-row">
+
+            <div class="category-info">
+
+                <span class="category-name">
+                    🔩 Metal
+                </span>
+
+                <span class="category-value">
+                    Recyclable
+                </span>
+
+            </div>
+
+            <div class="bar-background">
+
+                <div class="bar-fill" style="width: 65%;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         WASTE GROUPS
+    ========================== -->
+
+    <div class="section-card">
+
+        <h2>🗂️ Waste Groups</h2>
+
+        <p class="section-description">
+            Your 11 classes can also be understood through
+            broader waste-management groups.
+        </p>
+
+
+        <div class="groups-container">
+
+
+            <!-- Recyclable -->
+
+            <div class="group-card">
+
+                <h3>♻️ Recyclable</h3>
+
+                <p>
+                    Materials that can commonly enter recycling
+                    systems when accepted by local facilities.
+                </p>
+
+                <div class="class-list">
+                    Glass • Cardboard • Metal • Paper • Plastic
+                </div>
+
+            </div>
+
+
+            <!-- Reusable -->
+
+            <div class="group-card">
+
+                <h3>🔄 Reusable</h3>
+
+                <p>
+                    Items that may be used again, donated,
+                    repaired, or repurposed.
+                </p>
+
+                <div class="class-list">
+                    Clothes • Shoes
+                </div>
+
+            </div>
+
+
+            <!-- Organic -->
+
+            <div class="group-card">
+
+                <h3>🌱 Organic</h3>
+
+                <p>
+                    Biodegradable material that may be suitable
+                    for composting or organic waste collection.
+                </p>
+
+                <div class="class-list">
+                    Biological
+                </div>
+
+            </div>
+
+
+            <!-- Special -->
+
+            <div class="group-card">
+
+                <h3>⚠️ Special Handling</h3>
+
+                <p>
+                    Certain materials require specific handling
+                    instead of normal household disposal.
+                </p>
+
+                <div class="class-list">
+                    Battery
+                </div>
+
+            </div>
+
+
+            <!-- General -->
+
+            <div class="group-card">
+
+                <h3>🗑️ General Waste</h3>
+
+                <p>
+                    Waste that does not fit the recyclable,
+                    reusable, or organic categories.
+                </p>
+
+                <div class="class-list">
+                    Trash
+                </div>
+
+            </div>
+
+
+            <!-- Non-Waste -->
+
+            <div class="group-card">
+
+                <h3>✨ Non-Waste</h3>
+
+                <p>
+                    Items identified as not being waste and
+                    potentially still useful.
+                </p>
+
+                <div class="class-list">
+                    Non-Waste
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         SCRAPLENS INSIGHT
+    ========================== -->
+
+    <div class="insight-box">
+
+        <h2>🌱 ScrapLens Insight</h2>
+
+        <p>
+            Correct classification is the first step toward
+            better waste management. Once waste is identified,
+            it can be directed toward recycling, reuse,
+            composting, special handling, or appropriate
+            general disposal.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <p>
+        🌱 ScrapLens - Smart Waste Classification
+    </p>
+
+    <p>
+        <a href="index.html">
+            ← Back to Home
+        </a>
+    </p>
+
+    <p>
+        © 2026 ScrapLens. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
