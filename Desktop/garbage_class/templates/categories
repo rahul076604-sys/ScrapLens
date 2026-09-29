@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Waste Categories | ScrapLens</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f8f5;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        header {
+            background: #ffffff;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-section img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-section h2 {
+            color: #176b3a;
+            font-size: 23px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #16834b;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            text-align: center;
+            padding: 65px 20px 45px;
+        }
+
+        .hero .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            color: #14532d;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #64748b;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .class-count {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 9px 18px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        /* ================= CATEGORY GRID ================= */
+
+        .categories-container {
+            width: 86%;
+            max-width: 1200px;
+            margin: 0 auto 70px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        /* ================= CARD ================= */
+
+        .category-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px 22px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #2e8b57;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+        }
+
+        .category-icon {
+            width: 90px;
+            height: 90px;
+            margin: 5px auto 18px;
+            border-radius: 50%;
+            background: #ecfdf3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 43px;
+        }
+
+        .category-card h3 {
+            font-size: 21px;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .category-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #6b7280;
+            min-height: 45px;
+        }
+
+        .learn-more {
+            display: inline-block;
+            margin-top: 18px;
+            color: #16834b;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ================= BADGES ================= */
+
+        .badge {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .recyclable {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .special {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .general {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* ================= BOTTOM CTA ================= */
+
+        .cta {
+            width: 86%;
+            max-width: 1100px;
+            margin: 0 auto 70px;
+            background: linear-gradient(135deg, #166534, #22a05a);
+            color: white;
+            border-radius: 22px;
+            padding: 45px;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .cta button {
+            border: none;
+            background: white;
+            color: #166534;
+            padding: 13px 27px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cta button:hover {
+            transform: scale(1.05);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #123524;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer h3 {
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: #b8c9bf;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-container {
+                width: 90%;
+            }
+
+            .cta {
+                width: 90%;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+    <div class="logo-section">
+
+        <!-- Change this path to your actual logo -->
+        <img src="{{ url_for('static', filename='waste_class_logo.png') }}"
+             alt="ScrapLens Logo">
+
+        <h2>ScrapLens</h2>
+
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/predict">Classify</a>
+        <a href="#" class="active">Categories</a>
+        <a href="/analytics">Insights</a>
+        <a href="/about">About</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="icon">♻️</div>
+
+    <h1>Waste Categories</h1>
+
+    <p>
+        Explore the different types of waste that ScrapLens
+        can identify using AI-powered image classification.
+    </p>
+
+    <span class="class-count">
+        11 Waste Categories
+    </span>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="categories-container">
+
+    <div class="category-grid">
+
+
+        <!-- 1. BATTERY -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🔋
+            </div>
+
+            <h3>Battery</h3>
+
+            <p>
+                Used batteries and cells that require
+                responsible disposal.
+            </p>
+
+            <span class="badge special">
+                Special Disposal
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 2. BIOLOGICAL -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🌱
+            </div>
+
+            <h3>Biological</h3>
+
+            <p>
+                Organic and biodegradable materials
+                from natural sources.
+            </p>
+
+            <span class="badge recyclable">
+                Organic Waste
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 3. GLASS -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🥛
+            </div>
+
+            <h3>Glass</h3>
+
+            <p>
+                Glass bottles, containers and other
+                discarded glass materials.
+            </p>
+
+            <span class="badge recyclable">
+                Recyclable
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 4. CARDBOARD -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                📦
+            </div>
+
+            <h3>Cardboard</h3>
+
+            <p>
+                Boxes, packaging and other cardboard
+                based waste.
+            </p>
+
+            <span class="badge recyclable">
+                Recyclable
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 5. CLOTHES -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                👕
+            </div>
+
+            <h3>Clothes</h3>
+
+            <p>
+                Discarded clothing and textile materials
+                that can be reused or recycled.
+            </p>
+
+            <span class="badge recyclable">
+                Reusable
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 6. METAL -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🔩
+            </div>
+
+            <h3>Metal</h3>
+
+            <p>
+                Metal cans, containers and other
+                metallic waste materials.
+            </p>
+
+            <span class="badge recyclable">
+                Recyclable
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 7. NON-WASTE -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                ✨
+            </div>
+
+            <h3>Non-Waste</h3>
+
+            <p>
+                Images that do not contain a recognizable
+                waste item.
+            </p>
+
+            <span class="badge general">
+                Not Waste
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 8. PAPER -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                📄
+            </div>
+
+            <h3>Paper</h3>
+
+            <p>
+                Newspapers, documents and other
+                discarded paper materials.
+            </p>
+
+            <span class="badge recyclable">
+                Recyclable
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 9. PLASTIC -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🧴
+            </div>
+
+            <h3>Plastic</h3>
+
+            <p>
+                Plastic bottles, containers and
+                packaging materials.
+            </p>
+
+            <span class="badge recyclable">
+                Recyclable
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 10. SHOES -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                👟
+            </div>
+
+            <h3>Shoes</h3>
+
+            <p>
+                Used footwear and shoe materials
+                identified as waste.
+            </p>
+
+            <span class="badge">
+                Reuse Possible
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+        <!-- 11. TRASH -->
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🗑️
+            </div>
+
+            <h3>Trash</h3>
+
+            <p>
+                General waste that does not belong
+                to the recyclable categories.
+            </p>
+
+            <span class="badge general">
+                General Waste
+            </span>
+
+            <div class="learn-more">
+                Learn More →
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta">
+
+    <h2>Want to identify your waste?</h2>
+
+    <p>
+        Upload an image and let ScrapLens classify it
+        using our Vision Transformer model.
+    </p>
+
+    <button onclick="window.location.href='/'">
+        🔍 Analyze Waste
+    </button>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h3>🌱 ScrapLens</h3>
+
+    <p>
+        AI-powered waste classification for a cleaner future.
+    </p>
+
+    <p style="margin-top: 10px;">
+        © 2026 ScrapLens. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+</html>
