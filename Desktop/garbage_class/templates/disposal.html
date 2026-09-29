@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Disposal Guide - ScrapLens</title>
+
+    <style>
+
+        /* =========================
+           BASIC PAGE STYLE
+        ========================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8f5;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+            color: #1e293b;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            background: navy;
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        header h1 {
+            margin: 5px 0 8px;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 15px;
+            color: #cbd5e1;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================== */
+
+        .back-container {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #2e7d32;
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .back-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           INTRODUCTION
+        ========================== */
+
+        .intro {
+            max-width: 850px;
+            margin: 25px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           DISPOSAL GRID
+        ========================== */
+
+        .disposal-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+
+        /* =========================
+           DISPOSAL CARD
+        ========================== */
+
+        .disposal-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 18px;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+            border: 1px solid #e2e8f0;
+
+            transition: transform 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .disposal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+            border-color: #2e7d32;
+        }
+
+
+        /* =========================
+           CARD HEADER
+        ========================== */
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .waste-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #e8f5e9;
+            border-radius: 12px;
+
+            font-size: 28px;
+        }
+
+        .card-header h3 {
+            margin: 0 0 5px;
+            color: #1e293b;
+            font-size: 20px;
+        }
+
+
+        /* =========================
+           BADGES
+        ========================== */
+
+        .badge {
+            display: inline-block;
+
+            padding: 4px 9px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+
+        /* =========================
+           DISPOSAL CONTENT
+        ========================== */
+
+        .disposal-card h4 {
+            margin: 15px 0 8px;
+
+            color: #2e7d32;
+
+            font-size: 15px;
+        }
+
+        .disposal-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .disposal-card li {
+            margin: 8px 0;
+
+            color: #475569;
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .do {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           WARNING BOX
+        ========================== */
+
+        .warning {
+            margin-top: 15px;
+
+            padding: 10px 12px;
+
+            background: #fff8e1;
+
+            border-left: 4px solid #f9a825;
+
+            border-radius: 5px;
+
+            font-size: 13px;
+
+            color: #6d4c00;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================
+           GENERAL WASTE SECTION
+        ========================== */
+
+        .disposal-tip {
+            max-width: 1000px;
+
+            margin: 30px auto;
+
+            padding: 0 20px;
+        }
+
+        .tip-box {
+            background: #1e293b;
+
+            color: white;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            text-align: center;
+        }
+
+        .tip-box h2 {
+            color: #38bdf8;
+            margin-top: 0;
+        }
+
+        .tip-box p {
+            color: #cbd5e1;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #f1f1f1;
+
+            border-top: 2px solid #ddd;
+
+            padding: 15px 0;
+
+            text-align: center;
+
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px;
+
+            color: #475569;
+
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #2e7d32;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            .disposal-container {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+
+            .intro {
+                padding: 0 15px;
+            }
+
+            .back-container {
+                padding: 0 15px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header>
+
+    <h1>♻️ Disposal Guide</h1>
+
+    <p>
+        Learn how to dispose of different types of waste properly
+    </p>
+
+</header>
+
+
+
+<!-- =========================
+     BACK BUTTON
+========================== -->
+
+<div class="back-container">
+
+    <a href="{{ url_for('home') }}" class="back-btn">
+        ← Back to Home
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     INTRO
+========================== -->
+
+<section class="intro">
+
+    <h2>Dispose Waste the Right Way</h2>
+
+    <p>
+        Different types of waste require different disposal methods.
+        Use this guide to understand how each waste category should
+        be handled, reused, recycled, or disposed of.
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     DISPOSAL CARDS
+========================== -->
+
+<section class="disposal-container">
+
+
+    <!-- BATTERY -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                🔋
+            </div>
+
+            <div>
+                <h3>Battery</h3>
+                <span class="badge">Special Disposal</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Take batteries to a designated collection point.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Keep used batteries separate from regular waste.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Handle damaged batteries carefully.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            ⚠️ Do not put batteries in normal household waste.
+        </div>
+
+    </div>
+
+
+
+    <!-- BIOLOGICAL -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                🌱
+            </div>
+
+            <div>
+                <h3>Biological</h3>
+                <span class="badge">Organic Waste</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Keep organic waste separate from recyclables.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Place suitable food waste in a compost bin.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Use composting where available.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            🌿 Organic waste can often be converted into compost.
+        </div>
+
+    </div>
+
+
+
+    <!-- GLASS -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                🥛
+            </div>
+
+            <div>
+                <h3>Glass</h3>
+                <span class="badge">Recyclable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Rinse glass containers before recycling.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Put recyclable glass in the appropriate collection bin.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Handle broken glass carefully.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            ⚠️ Wrap broken glass safely before disposal.
+        </div>
+
+    </div>
+
+
+
+    <!-- CARDBOARD -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                📦
+            </div>
+
+            <div>
+                <h3>Cardboard</h3>
+                <span class="badge">Recyclable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Flatten cardboard boxes.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Keep cardboard clean and dry.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Send it to the appropriate recycling stream.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            📦 Reuse cardboard boxes whenever possible.
+        </div>
+
+    </div>
+
+
+
+    <!-- CLOTHES -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                👕
+            </div>
+
+            <div>
+                <h3>Clothes</h3>
+                <span class="badge">Reusable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Donate clothes that are still usable.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Reuse old clothes where possible.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Use textile collection programs when available.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            👕 Consider donation or reuse before disposal.
+        </div>
+
+    </div>
+
+
+
+    <!-- METAL -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                🔩
+            </div>
+
+            <div>
+                <h3>Metal</h3>
+                <span class="badge">Recyclable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Separate metal from general waste.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Take scrap metal to a recycling facility.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Clean suitable containers before recycling.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            🔩 Metal can often be recovered and recycled.
+        </div>
+
+    </div>
+
+
+
+    <!-- NON-WASTE -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                ✨
+            </div>
+
+            <div>
+                <h3>Non-Waste</h3>
+                <span class="badge">Not Waste</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Keep usable objects instead of discarding them.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Reuse or donate useful items.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Avoid unnecessary disposal.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            💡 If an item is still useful, consider keeping or donating it.
+        </div>
+
+    </div>
+
+
+
+    <!-- PAPER -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                📄
+            </div>
+
+            <div>
+                <h3>Paper</h3>
+                <span class="badge">Recyclable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Keep paper clean and dry.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Separate paper from food and liquid waste.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Place recyclable paper in the appropriate collection.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            📄 Reuse paper before recycling whenever possible.
+        </div>
+
+    </div>
+
+
+
+    <!-- PLASTIC -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                🧴
+            </div>
+
+            <div>
+                <h3>Plastic</h3>
+                <span class="badge">Recyclable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Empty and rinse recyclable containers.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Follow local plastic collection rules.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Reuse suitable containers where possible.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            ⚠️ Avoid burning plastic because it can release harmful pollutants.
+        </div>
+
+    </div>
+
+
+
+    <!-- SHOES -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                👟
+            </div>
+
+            <div>
+                <h3>Shoes</h3>
+                <span class="badge">Reusable</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Donate wearable shoes.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Repair usable shoes where possible.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Use footwear collection programs when available.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            👟 Usable shoes can often be reused or donated.
+        </div>
+
+    </div>
+
+
+
+    <!-- TRASH -->
+
+    <div class="disposal-card">
+
+        <div class="card-header">
+
+            <div class="waste-icon">
+                🗑️
+            </div>
+
+            <div>
+                <h3>Trash</h3>
+                <span class="badge">General Waste</span>
+            </div>
+
+        </div>
+
+        <h4>♻️ Recommended Action</h4>
+
+        <ul>
+
+            <li>
+                <span class="do">✓</span>
+                Use general waste only for non-recyclable items.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Separate recyclable materials first.
+            </li>
+
+            <li>
+                <span class="do">✓</span>
+                Keep waste contained to prevent littering.
+            </li>
+
+        </ul>
+
+        <div class="warning">
+            🗑️ Check whether an item can be reused, recycled, or composted first.
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     SCRAPLENS TIP
+========================== -->
+
+<section class="disposal-tip">
+
+    <div class="tip-box">
+
+        <h2>🌱 ScrapLens Tip</h2>
+
+        <p>
+            Before throwing something away, ask yourself:
+            <b>Can I reuse it, recycle it, or compost it?</b>
+            Small sorting decisions can help reduce unnecessary waste.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <p>🌱 ScrapLens - Smart Waste Classification</p>
+
+    <p>
+        <a href="{{ url_for('home') }}">← Back to Home</a>
+    </p>
+
+    <p>
+        © 2026 ScrapLens. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+</html>
