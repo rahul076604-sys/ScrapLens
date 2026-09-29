@@ -28,7 +28,7 @@ def process_user_image_viT(image_path):
     
     print(f"--- Found {len(results.boxes)} items in the photo. Starting classification... ---")
     
-    # 4. LOOP: Process each detected item one by one
+    # 4. INLOOP: Processing each detected item one by one
     if(len(results.boxes)>0):
         for idx, box in enumerate(results.boxes):
             # Extract coordinates of the bounding box
@@ -40,22 +40,21 @@ def process_user_image_viT(image_path):
             x2 = min(w, x2 + 5)
             y2 = min(h, y2 + 5)
             
-            # 5. EXTRACT: Crop out the individual piece of waste
+            #extracting individual images
             cropped_waste = image[y1:y2, x1:x2]
             
-            # 6. PREPROCESS FOR MOBILENET: Convert BGR to RGB and resize to MobileNet's expected input shape
-            # (Most MobileNet models expect 224x224 pixels)
+            # 6. PREPROCESSING FOR MOBILENET: Convert BGR to RGB and resize to MobileNet's expected input shape
             cropped_rgb = cv2.cvtColor(cropped_waste, cv2.COLOR_BGR2RGB)
             resized_item = cv2.resize(cropped_rgb, (224, 224))
             
             input_tensor = np.expand_dims(resized_item.astype(np.float32), axis=0)
 
-            # 7. PREDICT: Pass the single clean crop to your MobileNet model
+            # 7. PREDICTING croped images
             predictions = predict_waste(resized_item)
             predicted_class =predictions[0]
             confidence = predictions[1]
             
-            #label = CLASS_LABELS[predicted_class_idx]
+      
             
             print(f"Item {idx + 1}: Classified as [{predicted_class}] with {confidence*100:.1f}% confidence.")
             
@@ -86,14 +85,14 @@ def process_user_image_viT(image_path):
 
 
 
-# Explicitly list your 13 classes in the EXACT alphabetical order of your dataset folders
+
 CLASS_NAMES = [
     'battery', 'biological', 'brown-glass', 'cardboard', 'clothes', 
      'green-glass', 'metal', 'non_waste', 'paper', 'plastic', 'shoes', 'trash', 'white-glass'
 ]
 NUM_CLASSES = len(CLASS_NAMES)
 
-# 2. Recreate the exact ViT Architecture
+
 model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=NUM_CLASSES)
 model.load_state_dict(torch.load("src/vit_13_waste_classifier.pth",map_location=torch.device('cpu')))
 model = model.to(device)
@@ -105,7 +104,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
-#image_path="/content/cc.jpg"
+
 
 # 4. Prediction Function
 def predict_waste(image_path):
