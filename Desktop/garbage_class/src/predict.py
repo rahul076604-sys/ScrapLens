@@ -2,9 +2,9 @@ import tensorflow as tf
 import numpy as np
 
 # Load trained model
-model = tf.keras.models.load_model("src\mobileWaste_classifier.keras")
+model = tf.keras.models.load_model("src/mobileWaste_classifier.keras")
 
-class_names = np.load("src\class_names.npy", allow_pickle=True)
+class_names = np.load("src/class_names.npy", allow_pickle=True)
 
 
 def predict_waste(filepath):
