@@ -40,4 +40,6 @@ def predict():
                             path=base64_img) 
     
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Render passes a dynamic port via environment variables. Default to 10000 locally.
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=False)
