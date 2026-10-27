@@ -8,7 +8,7 @@ from src.vitP import predict_waste
 from src.predict import predict_waste
 
 detector = YOLO('yolov8n.pt') 
-mobilenet_classifier = tf.keras.models.load_model("src\mobileWaste_classifier.keras")
+mobilenet_classifier = tf.keras.models.load_model("src/mobileWaste_classifier.keras")
 
 
 CLASS_LABELS = ['battery', 'biological', 'brown-glass', 'cardboard', 'clothes', 'green-glass',
