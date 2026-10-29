@@ -7,26 +7,44 @@ from tensorflow.keras.models import load_model
 from src.vitP import predict_waste
 from src.predict import predict_waste
 
-detector = YOLO('yolov8n.pt') 
-mobilenet_classifier = tf.keras.models.load_model("src/mobileWaste_classifier.keras")
-
+detector = None
+mobilenet_classifier = None
 
 CLASS_LABELS = ['battery', 'biological', 'brown-glass', 'cardboard', 'clothes', 'green-glass',
                  'metal', 'non_waste','paper', 'plastic', 'shoes', 'trash', 'white-glass']
 
+# defining yolo function, it will load only when user uploads image 
+def get_yolo_detector():
+    global detector
+    if detector is None:
+        print("--- Initializing YOLO detector ---")
+        detector = YOLO('yolov8n.pt')
+    return detector
+
+# same way defining model, initialize at first prediction
+def get_mobilenet_classifier():
+    global mobilenet_classifier
+    if mobilenet_classifier is None:
+        print("--- Initializing MobileNet Classifier ---")
+        mobilenet_classifier = tf.keras.models.load_model("src/mobileWaste_classifier.keras")
+    return mobilenet_classifier
+
+
 def process_user_image(image_path):
-   
+    
+    yolo_model = get_yolo_detector()
+    classifier_model = get_mobilenet_classifier()   
+  
     image = cv2.imread(image_path)
     h, w, _ = image.shape
     
-    # 3. DETECT: Find all distinct items in the image
-    # We use agnostic_nms=True so overlapping bounding boxes don't double-detect the same trash
-    results = detector(image, agnostic_nms=True)[0]
+    #  Find all distinct items in the image using the variable instance
+    results = yolo_model(image, agnostic_nms=True)[0]
     
     print(f"--- Found {len(results.boxes)} items in the photo. Starting classification... ---")
     
-    # 4. LOOP: Process each detected item one by one
-    if(len(results.boxes)>0):
+    # Process each detected item one by one
+    if(len(results.boxes) > 0):
         for idx, box in enumerate(results.boxes):
             # Extract coordinates of the bounding box
             x1, y1, x2, y2 = map(int, box.xyxy[0])
@@ -37,18 +55,17 @@ def process_user_image(image_path):
             x2 = min(w, x2 + 5)
             y2 = min(h, y2 + 5)
             
-            # 5. EXTRACT: Crop out the individual piece of waste
+            #  Crop out the individual piece of waste
             cropped_waste = image[y1:y2, x1:x2]
             
-            # 6. PREPROCESS FOR MOBILENET: Convert BGR to RGB and resize to MobileNet's expected input shape
-            # (Most MobileNet models expect 224x224 pixels)
+            #  PREPROCESS FOR MOBILENET: Convert BGR to RGB and resize to MobileNet's expected input shape
             cropped_rgb = cv2.cvtColor(cropped_waste, cv2.COLOR_BGR2RGB)
             resized_item = cv2.resize(cropped_rgb, (224, 224))
             
             input_tensor = np.expand_dims(resized_item.astype(np.float32), axis=0)
 
-            # 7. PREDICT: Pass the single clean crop to your MobileNet model
-            predictions = mobilenet_classifier.predict(input_tensor)
+            # predict the cropped single image 
+            predictions = classifier_model.predict(input_tensor)
             predicted_class_idx = np.argmax(predictions[0])
             confidence = predictions[0][predicted_class_idx]
             
@@ -56,12 +73,11 @@ def process_user_image(image_path):
             
             print(f"Item {idx + 1}: Classified as [{label}] with {confidence*100:.1f}% confidence.")
             
-            # OPTIONAL: Draw the predicted label on the original image for the user to see
+            
             cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            # Calculate text size to ensure exact positioning
             (text_width, text_height), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 1.0, 3)
             
-            #showing predicted class text in images
+
             if y1 - 15 < 0:
               text_y = y1 + text_height + 10 
             else:
@@ -69,9 +85,8 @@ def process_user_image(image_path):
 
             cv2.putText(image, label, (x1, text_y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
 
-
         cv2.imwrite('user_output_classified.jpg', image)
-        return  image
+        return image
 
     else:
-      return  predict_waste(image_path)
+      return predict_waste(image_path)
