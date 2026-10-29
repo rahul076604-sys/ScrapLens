@@ -2,29 +2,44 @@ import torch
 from PIL import Image
 from torchvision import transforms
 import timm
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-MODEL_PATH = "src\vit_13_waste_classifier.pth"
-
 import cv2
 import numpy as np
 import tensorflow as tf
-from PIL import Image
 from ultralytics import YOLO
 
-detector = YOLO('yolov8n.pt') 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+MODEL_PATH = "src/vit_13_waste_classifier.pth"
+
+detector = None 
+model = None
 
 CLASS_LABELS = ['battery', 'biological', 'brown-glass', 'cardboard', 'clothes', 'green-glass',
                  'metal', 'non_waste','paper', 'plastic', 'shoes', 'trash', 'white-glass']
 
+def get_yolo_detector():
+    global detector
+    if detector is None:
+        detector = YOLO('yolov8n.pt')
+    return detector
+
+def get_vit_model():
+    global model
+    if model is None:
+        model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=NUM_CLASSES)
+        model.load_state_dict(torch.load("src/vit_13_waste_classifier.pth",map_location=torch.device('cpu')))
+        model = model.to(device)
+        model.eval()
+    return model
+
 def process_user_image_viT(image_path):
+    yolo_model = get_yolo_detector()
    
     image = cv2.imread(image_path)
     h, w, _ = image.shape
     
     # 3. DETECT: Find all distinct items in the image
     # We use agnostic_nms=True so overlapping bounding boxes don't double-detect the same trash
-    results = detector(image, agnostic_nms=True)[0]
+    results = yolo_model(image, agnostic_nms=True)[0]
     
     print(f"--- Found {len(results.boxes)} items in the photo. Starting classification... ---")
     
@@ -44,6 +59,7 @@ def process_user_image_viT(image_path):
             cropped_waste = image[y1:y2, x1:x2]
             
             # 6. PREPROCESSING FOR MOBILENET: Convert BGR to RGB and resize to MobileNet's expected input shape
+            # (Most MobileNet models expect 224x224 pixels)
             cropped_rgb = cv2.cvtColor(cropped_waste, cv2.COLOR_BGR2RGB)
             resized_item = cv2.resize(cropped_rgb, (224, 224))
             
@@ -93,11 +109,6 @@ CLASS_NAMES = [
 NUM_CLASSES = len(CLASS_NAMES)
 
 
-model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=NUM_CLASSES)
-model.load_state_dict(torch.load("src/vit_13_waste_classifier.pth",map_location=torch.device('cpu')))
-model = model.to(device)
-model.eval()  # Crucial: Sets layers like Dropout to evaluation mode
-
 # 3. Define the Validation Preprocessing Pipeline
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -108,6 +119,7 @@ transform = transforms.Compose([
 
 # 4. Prediction Function
 def predict_waste(image_path):
+    vit_model = get_vit_model()
 
     if isinstance(image_path, str):
       image = Image.open(image_path).convert('RGB')
@@ -119,7 +131,7 @@ def predict_waste(image_path):
     input_tensor = transform(image).unsqueeze(0).to(device)
     
     with torch.no_grad():
-        outputs = model(input_tensor)
+        outputs = vit_model(input_tensor)
         
         # Apply Softmax to convert raw logits into percentages
         probabilities = torch.nn.functional.softmax(outputs[0], dim=0)
